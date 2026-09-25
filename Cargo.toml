@@ -1,0 +1,19 @@
+[workspace]
+members = ["."]
+resolver = "3"
+
+[package]
+name = "omarchy-lib-theme"
+version = "1.0.0-beta.3"
+edition = "2024"
+rust-version = "1.88"
+description = "Colors for Omarchy applications, inherited from the system active theme."
+license = "MIT"
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[dependencies]
+material-colors = { version = "0.4.2", default-features = false, features = ["std"] }
+notify = "8.2.0"
+toml = "1.1"

@@ -1,0 +1,31 @@
+# Maintainer: bencchio <bencchio@gmail.com>
+# pkgver names the latest published release, which is one step behind the tag containing this file:
+# sha256sums is the checksum of the archive built from a tag, and that archive contains this file,
+# so a tag can never state its own. packaging/github-release.sh rewrites both when it publishes.
+pkgname=omarchy-lib-theme
+pkgver=0.4.0
+pkgrel=1
+pkgdesc="Colors for Omarchy applications, inherited from the system active theme"
+arch=('x86_64' 'aarch64')
+url="https://github.com/bencchio/omarchy-lib-theme"
+license=('MIT')
+depends=()
+makedepends=('rust' 'cmake')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/bencchio/omarchy-lib-theme/archive/refs/tags/$pkgver.tar.gz")
+sha256sums=('2d0f99f606e50a404b062a069c5c811d611956c136623fb0ab50fe21469034c0')
+
+build() {
+	cd "$pkgname-$pkgver"
+	# makepkg remaps $srcdir out of the binary, but dependency sources live in the packager's Cargo
+	# cache, so their panic paths would ship the packager's home directory to everyone who installs.
+	export RUSTFLAGS="${RUSTFLAGS:-} --remap-path-prefix=${CARGO_HOME:-$HOME/.cargo}=/cargo"
+	cmake -S . -B build \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release
+	cmake --build build
+}
+
+package() {
+	cd "$pkgname-$pkgver"
+	DESTDIR="$pkgdir" cmake --install build
+}

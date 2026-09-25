@@ -1,0 +1,14 @@
+@PACKAGE_INIT@
+
+# omarchy-lib-theme has no CMake-built target of its own — Cargo produces the library, and this config
+# only wires up an IMPORTED target pointing at what got installed.
+
+if(NOT TARGET omarchy-lib-theme::shared)
+    add_library(omarchy-lib-theme::shared SHARED IMPORTED)
+    set_target_properties(omarchy-lib-theme::shared PROPERTIES
+        IMPORTED_LOCATION "@PACKAGE_CMAKE_INSTALL_LIBDIR@/libomarchy_lib_theme.so"
+        INTERFACE_INCLUDE_DIRECTORIES "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@"
+    )
+endif()
+
+check_required_components(omarchy-lib-theme)

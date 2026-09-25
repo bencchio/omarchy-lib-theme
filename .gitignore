@@ -1,0 +1,39 @@
+# Editor temp files
+*.swp
+*.swo
+*~
+.*.swp
+.*.swo
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+TEMP.md
+temp/
+explore/
+
+# Rust — el target-dir del proyecto vive en src/target (.cargo/config.toml)
+src/target/
+
+# Cargo.lock — librería, el lockfile no se versiona (queda a criterio del consumidor)
+Cargo.lock
+
+# CMake — build de la librería y de la app de referencia
+build/
+
+# makepkg — build del PKGBUILD de Arch
+packaging/arch/src/
+packaging/arch/pkg/
+packaging/arch/*.tar.gz
+packaging/arch/*.tar.zst
+packaging/arch/*.tar.xz
+/.claude/
+/.opencode/
+/.pi/
